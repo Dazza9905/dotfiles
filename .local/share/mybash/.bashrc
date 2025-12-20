@@ -1,7 +1,7 @@
 ######
 # ENV
 ######
-export XDG_CONFIG_HOME="$HOME/.config"
+
 
 #!/usr/bin/env bash
 iatest=$(expr index "$-" i)
@@ -45,6 +45,10 @@ shopt -s checkwinsize
 # Causes bash to append to history instead of overwriting it so if you start a new terminal, you have old session history
 shopt -s histappend
 PROMPT_COMMAND='history -a'
+
+
+export XDG_CONFIG_HOME="$HOME/.config"
+export QT_QPA_PLATFORMTHEME=qt6ct
 
 # set up XDG folders
 export XDG_DATA_HOME="$HOME/.local/share"
