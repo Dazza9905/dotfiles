@@ -652,7 +652,11 @@ fi
 . "$HOME/.cargo/env"
 
 export PATH=$PATH:/home/dazza/.spicetify
-
+export PATH="$HOME/.local/bin:$PATH"
+# Custom AppImage Installer
+install-appimage() {
+  "~/dotfiles/install-appimage.sh" "$@"
+}
 
 ##########################
 # YAZI
