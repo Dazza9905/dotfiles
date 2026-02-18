@@ -698,3 +698,7 @@ nvim_switch_configuration() {
 . "/home/dazza/.local/share/bob/env/env.sh"
 
 alias lg='lazygit'
+. "/home/dazza/.local/share/bob/env/env.sh"
+. "/home/dazza/.local/share/bob/env/env.sh"
+. "/home/dazza/.local/share/bob/env/env.sh"
+. "/home/dazza/.local/share/bob/env/env.sh"
