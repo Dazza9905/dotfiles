@@ -695,10 +695,6 @@ nvim_switch_configuration() {
   printf "%s\n" "Switched to: $config"
   nvim "$@"
 }
-. "/home/dazza/.local/share/bob/env/env.sh"
 
 alias lg='lazygit'
-. "/home/dazza/.local/share/bob/env/env.sh"
-. "/home/dazza/.local/share/bob/env/env.sh"
-. "/home/dazza/.local/share/bob/env/env.sh"
 . "/home/dazza/.local/share/bob/env/env.sh"
