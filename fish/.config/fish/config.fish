@@ -1,5 +1,5 @@
 if test -d ~/dotfiles/bin
-    fish_add_path ~/dotfiles/bin
+    fish_add_path ~/.local/bin/
 end
 set -gx EDITOR nvim
 set -gx SSH_AUTH_SOCK /home/$USER/.bitwarden-ssh-agent.sock

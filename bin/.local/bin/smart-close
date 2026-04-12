@@ -1,0 +1,30 @@
+#!/bin/bash
+
+ACTIVE_CLASS=$(hyprctl activewindow -j | jq -r '.class')
+
+case "$ACTIVE_CLASS" in
+    zen)
+        ACTIVE_ADDR=$(hyprctl activewindow -j | jq -r '.address')
+        
+        # Get all Zen windows that are NOT the active one
+        OTHER_ZEN=$(hyprctl clients -j | jq -r --arg active "$ACTIVE_ADDR" \
+            '.[] | select(.class == "zen" and .address != $active) | .address')
+        
+        # Hide the active window
+        hyprctl dispatch movetoworkspacesilent "special:minimized,address:$ACTIVE_ADDR"
+        
+        # Kill other Zen windows if they exist
+        if [ -n "$OTHER_ZEN" ]; then
+            echo "$OTHER_ZEN" | while read -r addr; do
+                hyprctl dispatch closewindow "address:$addr"
+            done
+        fi
+        ;;
+    Spotify|discord)
+        ADDR=$(hyprctl activewindow -j | jq -r '.address')
+        hyprctl dispatch movetoworkspacesilent "special:minimized,address:$ADDR"
+        ;;
+    *)
+        hyprctl dispatch killactive
+        ;;
+esac

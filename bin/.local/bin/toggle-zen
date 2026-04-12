@@ -1,0 +1,20 @@
+#!/bin/bash
+
+ZEN_DATA=$(hyprctl clients -j | jq -r '.[] | select(.class == "zen") | {address, workspace: .workspace.name}')
+
+if [ -z "$ZEN_DATA" ]; then
+  zen-browser &
+  exit 0
+fi
+
+ADDR=$(echo "$ZEN_DATA" | jq -r '.address')
+WS=$(echo "$ZEN_DATA" | jq -r '.workspace')
+
+if [[ "$WS" == "special:minimized" ]]; then
+  # Move to current workspace and focus - use proper address format
+  hyprctl dispatch movetoworkspace "$(hyprctl activeworkspace -j | jq -r '.id'),address:$ADDR"
+  hyprctl dispatch focuswindow "address:$ADDR"
+else
+  # Hide to special workspace
+  hyprctl dispatch movetoworkspacesilent "special:minimized,address:$ADDR"
+fi
