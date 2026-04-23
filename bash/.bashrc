@@ -698,3 +698,6 @@ nvim_switch_configuration() {
 
 alias lg='lazygit'
 . "/home/dazza/.local/share/bob/env/env.sh"
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+PS1='[\u@\h \W]\$ '
