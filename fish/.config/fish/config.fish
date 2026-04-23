@@ -1,6 +1,14 @@
+alias lg lazygit
+
+# add custom binaires
 if test -d ~/dotfiles/bin
     fish_add_path ~/.local/bin/
 end
+
+if test (cat /etc/hostname) = dazzapc
+    kitty @ set-font-size 14
+end
+
 set -gx EDITOR nvim
 set -gx SSH_AUTH_SOCK /home/$USER/.bitwarden-ssh-agent.sock
 function fish_prompt -d "Write out the prompt"
