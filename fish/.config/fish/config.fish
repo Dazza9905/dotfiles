@@ -3,6 +3,7 @@ alias lg lazygit
 # add custom binaires
 if test -d ~/dotfiles/bin
     fish_add_path ~/.local/bin/
+    fish_add_path ~/.cargo/bin/
 end
 
 if test (cat /etc/hostname) = dazzapc
