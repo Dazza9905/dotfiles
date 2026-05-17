@@ -1,0 +1,2 @@
+#NAS
+100.77.151.120:/mnt/nas-data/files-dazza /mnt/nas/files-dazza nfs _netdev,nofail,x-systemd.automount,x-systemd.mount-timeout=5,timeo=14,intr 0 0
