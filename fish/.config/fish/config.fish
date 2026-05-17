@@ -1,5 +1,15 @@
 alias lg lazygit
 
+set -x LESS_TERMCAP_mb (printf "\e[1;31m")
+set -x LESS_TERMCAP_md (printf "\e[1;32m")
+set -x LESS_TERMCAP_me (printf "\e[0m")
+set -x LESS_TERMCAP_se (printf "\e[0m")
+set -x LESS_TERMCAP_so (printf "\e[1;44;33m")
+set -x LESS_TERMCAP_ue (printf "\e[0m")
+set -x LESS_TERMCAP_us (printf "\e[1;36m")
+set -x LESS "-iMR"
+set -x GROFF_NO_SGR 1
+# set -x MANPAGER "nvim +Man!"
 # add custom binaires
 if test -d ~/dotfiles/bin
     fish_add_path ~/.local/bin/
