@@ -3,4 +3,4 @@ require("config.lazy")
 -- Add anywhere in init.lua after plugins load
 vim.lsp.inlay_hint.enable(false)
 
-vim.g.autoformat = false
+-- vim.g.autoformat = false

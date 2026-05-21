@@ -1,0 +1,14 @@
+return {
+  {
+    "nvim-java/nvim-java",
+    config = function()
+      require("java").setup()
+      vim.lsp.enable("jdtls")
+    end,
+  },
+  {
+    "mfussenegger/nvim-dap",
+    commit = "45a69eba683a2c448dd9ecfc4de89511f0646b5f",
+    config = false, -- disable config entirely
+  },
+}
