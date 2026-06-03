@@ -34,14 +34,21 @@ layout {
     struts {
         left 5
         right 5
-        top 10
+        top 5
         bottom 5
     }
 }
 
+prefer-no-csd
+
 window-rule {
     geometry-corner-radius 7
     clip-to-geometry true
+}
+
+// Put swaybg inside the overview backdrop.
+layer-rule {
+    place-within-backdrop true
 }
 
 binds {
@@ -50,9 +57,18 @@ binds {
     Mod+Space { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
     Mod+Q { close-window; }
     Mod+F { maximize-column; }
-    Mod+G { fullscreen-window; }
-    Mod+Shift+F { toggle-window-floating; }
+    Mod+Shift+F { fullscreen-window; }
+    Mod+Alt+F { toggle-window-floating; }
     Mod+C { center-column; }
+
+
+    Mod+Minus { set-column-width "-10%"; }
+    Mod+Equal { set-column-width "+10%"; }
+
+    // Finer height adjustments when in column with other windows.
+    Mod+Shift+Minus { set-window-height "-10%"; }
+    Mod+Shift+Equal { set-window-height "+10%"; }
+
 
     // Focus (Vim motions)
     Mod+H { focus-column-left; }
@@ -65,6 +81,9 @@ binds {
     Mod+Shift+L { move-column-right; }
     Mod+Shift+K { move-window-up; }
     Mod+Shift+J { move-window-down; }
+
+    Mod+Semicolon  { consume-window-into-column; }
+    Mod+Apostrophe { expel-window-from-column; }
 
     // Workspace Switching
     Mod+1 { focus-workspace "w1"; }
@@ -85,11 +104,13 @@ binds {
     Mod+Alt+L { spawn "playerctl" "next"; }
     Mod+Alt+K { spawn "playerctl" "play-pause"; }
 
+    // Programs
+    Mod+D { spawn "vesktop"; }
     // Custom Execs
     Mod+E { spawn "kitty" "-e" "fish" "-c" "y"; }
     Mod+B { spawn "zen"; }
-    Mod+Alt+W { spawn "noctalia" "ipc" "call" "wifi" "togglePanel"; }
-    Mod+Alt+B { spawn "noctalia" "ipc" "call" "bluetooth" "togglePanel"; }
+    Mod+Alt+W { spawn "noctalia-shell" "ipc" "call" "wifi" "togglePanel"; }
+    Mod+Alt+B { spawn "noctalia-shell" "ipc" "call" "bluetooth" "togglePanel"; }
 }
 
 workspace "w1"

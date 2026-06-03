@@ -1,4 +1,8 @@
 alias lg lazygit
+function "e"
+  nvim $(fzf -m --preview="bat --color=always {}")
+end
+
 
 set -x LESS_TERMCAP_mb (printf "\e[1;31m")
 set -x LESS_TERMCAP_md (printf "\e[1;32m")
