@@ -1,8 +1,26 @@
 alias lg lazygit
 function "e"
-  nvim $(fzf -m --preview="bat --color=always {}")
+    set -l file (fzf --preview="bat --color=always {}")
+    nvim "$file"
+    y (dirname "$file")
+end
+function "edit"
+  nvim /home/dazza/.nixconf/modules/hosts/$(hostname)/configuration.nix
+  y /home/dazza/.nixconf/modules/hosts/$(hostname)/configuration.nix
 end
 
+function "rebuild"
+  cd /home/dazza/.nixconf/
+  sudo nixos-rebuild switch --flake
+end
+
+function "update"
+  cd /home/dazza/.nixconf/
+  nix flake update
+end
+
+abbr gh "cd ~"         # gh goes home
+abbr ghh "command gh"  # ghh calls the GitHub CLI
 
 set -x LESS_TERMCAP_mb (printf "\e[1;31m")
 set -x LESS_TERMCAP_md (printf "\e[1;32m")

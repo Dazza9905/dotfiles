@@ -137,7 +137,7 @@ def create_resume_gcode(parsed, resume_line, output_path):
     # Add setup for resuming print
     output_lines.append(";\n")
     output_lines.append("; Resume sequence\n")
-    output_lines.append("M104 S215  ; Set hotend temp\n")
+    output_lines.append("M104 S205  ; Set hotend temp\n")
     output_lines.append("M140 S60   ; Set bed temp\n")
     output_lines.append("G1 Z{:.1f} F720  ; Move to resume height\n".format(resume_z + 5))
     output_lines.append("M109 S215  ; Wait for hotend\n")
