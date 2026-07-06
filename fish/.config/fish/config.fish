@@ -9,10 +9,10 @@ function "edit"
   y /home/dazza/.nixconf/modules/hosts/$(hostname)/configuration.nix
 end
 
-function "rebuild"
-  cd /home/dazza/.nixconf/
-  sudo nixos-rebuild switch --flake
-end
+# function "rebuild"
+#   cd /home/dazza/.nixconf/
+#   sudo nixos-rebuild switch --flake
+# end
 
 function "update"
   cd /home/dazza/.nixconf/
@@ -42,7 +42,7 @@ if test (cat /etc/hostname) = dazzapc
     kitty @ set-font-size 14
 end
 
-set -gx EDITOR nvim
+set -gx EDITOR hx
 set -gx SSH_AUTH_SOCK /home/$USER/.bitwarden-ssh-agent.sock
 function fish_prompt -d "Write out the prompt"
     # This shows up as USER@HOST /home/user/ >, with the directory colored

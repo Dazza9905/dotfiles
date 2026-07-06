@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+set -e
+
+CONFIG_DIR="$HOME/.nixconf/"
+LOG="/tmp/nixos-switch.log"
+
+pushd "$CONFIG_DIR" >/dev/null
+
+echo "Formatting nix files..."
+alejandra . &>/dev/null || {
+    alejandra .
+    echo "formatting failed!"
+    notify-send -u critical -e "NixOS Rebuild" "Formatting failed"
+    popd >/dev/null
+    exit 1
+}
+
+echo "NixOS Rebuilding..."
+if sudo nixos-rebuild switch --flake &>"$LOG"; then
+    notify-send -e "NixOS Rebuilt OK!" --icon=software-update-available
+else
+    echo "Rebuild failed, errors below:"
+    grep --color=always -i error "$LOG" || cat "$LOG"
+    ERR_SUMMARY=$(grep -i error "$LOG" | head -n 3)
+    notify-send -u critical -e "NixOS Rebuild Failed" "${ERR_SUMMARY:-Check $LOG for details}"
+    popd >/dev/null
+    exit 1
+fi
+
+popd >/dev/null

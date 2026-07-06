@@ -57,7 +57,7 @@ layer-rule {
 binds {
     // Basic
     Mod+Return { spawn "kitty"; }
-    Mod+Space { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
+    Mod+Space { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
     Mod+Q { close-window; }
     Mod+F { maximize-column; }
     Mod+Shift+F { fullscreen-window; }
@@ -134,6 +134,30 @@ binds {
 
     XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+5%"; }
     XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "5%-"; }
+    // Mod+Alt+W { spawn "noctalia-shell" "ipc" "call" "wifi" "togglePanel"; }
+    // Mod+Alt+B { spawn "noctalia-shell" "ipc" "call" "bluetooth" "togglePanel"; }
+
+    Mod+Escape { spawn "noctalia" "msg" "panel-toggle" "session"; }
+    Mod+V { spawn "noctalia" "msg" "panel-toggle" "clipboard"; }
+    Mod+Tab { spawn "noctalia" "msg" "panel-toggle" "control-center"; }
+    Mod+Shift+W { spawn "noctalia" "msg" "panel-toggle" "control-center" "network"; }
+    Mod+Shift+B { spawn "noctalia" "msg" "panel-toggle" "control-center" "bluetooth"; }
+    Mod+Shift+S { spawn "noctalia" "msg" "panel-toggle" "control-center" "audio"; }
+    Mod+Shift+D { spawn "noctalia" "msg" "panel-toggle" "control-center" "monitor"; }
+    Mod+Shift+N { spawn "noctalia" "msg" "panel-toggle" "control-center" "notifications"; }
+    Mod+Shift+I { spawn "noctalia" "msg" "settings-open"; }
+
+    Alt+Tab { spawn "noctalia" "msg" "window-switcher"; }
+    Ctrl+Mod+Space { spawn "noctalia" "msg" "wallpaper-random"; }
+    Ctrl+Shift+Mod+Space { spawn "noctalia" "msg" "panel-toggle" "wallpaper"; }
+
+    // Touchpad Toggle
+    XF86TouchpadToggle { spawn "sh" "-c" "~/.local/bin/toggle-touchpad.sh"; }
+
+    // Screenshot / Snipping Tool (region select)
+    Print { spawn "sh" "-c" "grim -g \"$(slurp)\" ~/Pictures/Screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png"; }
+    // Full screen screenshot
+    Shift+Print { spawn "sh" "-c" "grim ~/Pictures/Screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png"; }
 }
 
 workspace "w1"
