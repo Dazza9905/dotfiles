@@ -1,0 +1,33 @@
+theme = "noctalia"
+
+[editor]
+line-number = "relative"
+cursorline = true
+scrolloff = 10
+true-color = true
+color-modes = true
+rulers = [120]
+auto-completion = true
+completion-trigger-len = 2
+idle-timeout = 300
+auto-save = false
+auto-format = true
+undercurl = true
+
+[editor.soft-wrap]
+enable = false
+
+[editor.search]
+smart-case = true
+wrap-around = true
+
+[editor.statusline]
+left = ["mode", "spinner", "file-name"]
+
+[editor.indent-guides]
+render = true
+
+[editor.cursor-shape]
+normal = "block"
+insert = "underline"
+select = "underline"
