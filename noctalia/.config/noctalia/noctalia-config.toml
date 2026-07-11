@@ -12,12 +12,13 @@ order = [ "min-vertical" ]
     capsule_opacity = 0.0
     capsule_thickness = 0.80000000000000004
     center = []
-    end = [ "battery", "notifications" ]
+    end = [ "tray", "keyboard_layout", "battery", "notifications" ]
     font_weight = 700
     margin_edge = 0
     margin_ends = 0
     padding = 4
     panel_overlap = 0
+    position = "left"
     radius = 0
     radius_bottom_right = -80
     radius_top_right = -80
@@ -100,12 +101,51 @@ blurred_desktop = true
 [lockscreen_widgets]
 enabled = true
 schema_version = 2
-widget_order = [ "lockscreen-login-box@eDP-1", "lockscreen-widget-0000000000000001" ]
+widget_order = [
+    "lockscreen-login-box@Unknown-1",
+    "lockscreen-login-box@DP-3",
+    "lockscreen-login-box@eDP-1",
+    "lockscreen-widget-0000000000000001"
+]
 
     [lockscreen_widgets.grid]
     cell_size = 64
     major_interval = 4
     visible = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-3"]
+    box_height = 70.0
+    box_width = 400.0
+    cx = 1280.0
+    cy = 1321.0
+    output = "DP-3"
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-3".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        input_opacity = 1.0
+        input_radius = 6.0
+        show_login_button = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@Unknown-1"]
+    box_height = 70.0
+    box_width = 400.0
+    cx = 1920.0
+    cy = 2041.0
+    output = "Unknown-1"
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@Unknown-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        input_opacity = 1.0
+        input_radius = 6.0
+        show_login_button = true
 
     [lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
     box_height = 70.0
@@ -142,7 +182,7 @@ enabled = [ "noctalia/screen_recorder", "noctalia/wallhaven", "noctalia/timer", 
 [shell]
 lang = "en"
 niri_overview_type_to_launch_enabled = true
-offline_mode = true
+offline_mode = false
 password_style = "random"
 screen_time_enabled = true
 settings_show_advanced = true
@@ -189,10 +229,16 @@ transition_on_startup = true
     order = "alphabetical"
 
     [wallpaper.default]
-    path = "/home/dazza/Pictures/Wallpapers/wallhaven_q2xq5d.jpg"
+    path = "/home/dazza/Pictures/Wallpapers/wallhaven-2ex5m6.jpg"
 
     [wallpaper.last]
-    path = "/home/dazza/Pictures/Wallpapers/wallhaven_q2xq5d.jpg"
+    path = "/home/dazza/Pictures/Wallpapers/wallhaven-2ex5m6.jpg"
+
+    [wallpaper.monitors.DP-3]
+    path = "/home/dazza/Pictures/Wallpapers/wallhaven-2ex5m6.jpg"
+
+    [wallpaper.monitors.Unknown-1]
+    path = "/home/dazza/Pictures/Wallpapers/wallhaven-2ex5m6.jpg"
 
     [wallpaper.monitors.eDP-1]
     path = "/home/dazza/Pictures/Wallpapers/wallhaven_q2xq5d.jpg"
@@ -213,6 +259,9 @@ show_label = false
 
 [widget.notes]
 type = "noctalia/notes:notes"
+
+[widget.wallhaven]
+type = "noctalia/wallhaven:wallhaven"
 
 [widget.workspaces]
 capsule = true
