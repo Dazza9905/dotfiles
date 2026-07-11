@@ -142,7 +142,7 @@ binds {
     Mod+Tab { spawn "noctalia" "msg" "panel-toggle" "control-center"; }
     Mod+Shift+W { spawn "noctalia" "msg" "panel-toggle" "control-center" "network"; }
     Mod+Shift+B { spawn "noctalia" "msg" "panel-toggle" "control-center" "bluetooth"; }
-    Mod+Shift+S { spawn "noctalia" "msg" "panel-toggle" "control-center" "audio"; }
+    Mod+Shift+A { spawn "noctalia" "msg" "panel-toggle" "control-center" "audio"; }
     Mod+Shift+D { spawn "noctalia" "msg" "panel-toggle" "control-center" "monitor"; }
     Mod+Shift+N { spawn "noctalia" "msg" "panel-toggle" "control-center" "notifications"; }
     Mod+Shift+I { spawn "noctalia" "msg" "settings-open"; }
@@ -155,9 +155,7 @@ binds {
     XF86TouchpadToggle { spawn "sh" "-c" "~/.local/bin/toggle-touchpad.sh"; }
 
     // Screenshot / Snipping Tool (region select)
-    Print { spawn "sh" "-c" "grim -g \"$(slurp)\" ~/Pictures/Screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png"; }
-    // Full screen screenshot
-    Shift+Print { spawn "sh" "-c" "grim ~/Pictures/Screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png"; }
+    Mod+Shift+S { spawn "noctalia" "msg" "screenshot-region"; }
 }
 
 workspace "w1"
