@@ -1,12 +1,12 @@
 alias lg lazygit
-function "e"
+function e
     set -l file (fzf --preview="bat --color=always {}")
-    nvim "$file"
+    hx "$file"
     y (dirname "$file")
 end
-function "edit"
-  nvim /home/dazza/.nixconf/modules/hosts/$(hostname)/configuration.nix
-  y /home/dazza/.nixconf/modules/hosts/$(hostname)/configuration.nix
+function edit
+    hx /home/dazza/.nixconf/modules/hosts/$(hostname)/configuration.nix
+    y /home/dazza/.nixconf/modules/hosts/$(hostname)/configuration.nix
 end
 
 # function "rebuild"
@@ -14,13 +14,13 @@ end
 #   sudo nixos-rebuild switch --flake
 # end
 
-function "update"
-  cd /home/dazza/.nixconf/
-  nix flake update
+function update
+    cd /home/dazza/.nixconf/
+    nix flake update
 end
 
-abbr gh "cd ~"         # gh goes home
-abbr ghh "command gh"  # ghh calls the GitHub CLI
+abbr gh "cd ~" # gh goes home
+abbr ghh "command gh" # ghh calls the GitHub CLI
 
 set -x LESS_TERMCAP_mb (printf "\e[1;31m")
 set -x LESS_TERMCAP_md (printf "\e[1;32m")
@@ -29,7 +29,7 @@ set -x LESS_TERMCAP_se (printf "\e[0m")
 set -x LESS_TERMCAP_so (printf "\e[1;44;33m")
 set -x LESS_TERMCAP_ue (printf "\e[0m")
 set -x LESS_TERMCAP_us (printf "\e[1;36m")
-set -x LESS "-iMR"
+set -x LESS -iMR
 set -x GROFF_NO_SGR 1
 # set -x MANPAGER "nvim +Man!"
 # add custom binaires
@@ -60,7 +60,7 @@ if status is-interactive # Commands to run in interactive sessions can go here
     # Use starship
     # starship init fish | source
     # if test -f ~/.local/state/quickshell/user/generated/terminal/sequences.txt
-        # cat ~/.local/state/quickshell/user/generated/terminal/sequences.txt
+    # cat ~/.local/state/quickshell/user/generated/terminal/sequences.txt
     # end
 
     # Aliases
