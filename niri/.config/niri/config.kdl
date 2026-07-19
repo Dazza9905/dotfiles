@@ -49,6 +49,14 @@ window-rule {
     clip-to-geometry true
 }
 
+window-rule {
+    match app-id=r#"^ncspot$"#
+    open-floating true
+    default-column-width { fixed 800; }
+    default-window-height { fixed 400; }
+    default-floating-position x=10 y=10 relative-to="bottom-right"
+}
+
 // Put swaybg inside the overview backdrop.
 layer-rule {
     place-within-backdrop true
