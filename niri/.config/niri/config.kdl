@@ -11,7 +11,7 @@ input {
     focus-follows-mouse
     keyboard {
         xkb {
-            layout "us,ua"
+            layout "us,ua,sk"
         }
         numlock
     }
