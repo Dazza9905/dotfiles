@@ -44,9 +44,32 @@ layout {
 
 prefer-no-csd
 
+// Mild compositor blur for Kitty's translucent background.
+blur {
+    passes 3
+    offset 2.0
+    noise 0.02
+    saturation 1.15
+}
+
 window-rule {
     geometry-corner-radius 7
     clip-to-geometry true
+}
+
+window-rule {
+    match app-id=r#"^kitty$"#
+    background-effect {
+        blur true
+    }
+}
+
+window-rule {
+    match app-id=r#"^gpt-dictate$"#
+    open-floating true
+    default-column-width { fixed 300; }
+    default-window-height { fixed 90; }
+    default-floating-position x=0 y=20 relative-to="bottom"
 }
 
 window-rule {
@@ -74,6 +97,7 @@ binds {
     Mod+C { center-column; }
     Mod+G { toggle-column-tabbed-display; }
     Mod+M { spawn "kitty" "--class" "ncspot" "-e" "ncspot"; }
+    Mod+Period { spawn "gpt-dictate" "toggle"; }
 
 
     Mod+Minus { set-column-width "-10%"; }
@@ -175,5 +199,5 @@ workspace "w3"
 workspace "w4"
 workspace "w5"
 
-include "./noctalia.kdl"
 
+include "noctalia.kdl"

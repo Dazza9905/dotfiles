@@ -1,11 +1,15 @@
 alias lg lazygit
+
+
+set -gx EDITOR nvim
+
 function e
     set -l file (fzf --preview="bat --color=always {}")
-    hx "$file"
+    $EDITOR "$file"
     y (dirname "$file")
 end
 function edit
-    hx /home/dazza/.nixconf/modules/hosts/$(hostname)/configuration.nix
+    $EDITOR /home/dazza/.nixconf/modules/hosts/$(hostname)/configuration.nix
     y /home/dazza/.nixconf/modules/hosts/$(hostname)/configuration.nix
 end
 
@@ -22,15 +26,19 @@ end
 abbr gh "cd ~" # gh goes home
 abbr ghh "command gh" # ghh calls the GitHub CLI
 
-set -x LESS_TERMCAP_mb (printf "\e[1;31m")
-set -x LESS_TERMCAP_md (printf "\e[1;32m")
-set -x LESS_TERMCAP_me (printf "\e[0m")
-set -x LESS_TERMCAP_se (printf "\e[0m")
-set -x LESS_TERMCAP_so (printf "\e[1;44;33m")
-set -x LESS_TERMCAP_ue (printf "\e[0m")
-set -x LESS_TERMCAP_us (printf "\e[1;36m")
-set -x LESS -iMR
-set -x GROFF_NO_SGR 1
+
+if status is-interactive
+    set -x LESS_TERMCAP_mb (printf "\e[1;31m")
+    set -x LESS_TERMCAP_md (printf "\e[1;32m")
+    set -x LESS_TERMCAP_me (printf "\e[0m")
+    set -x LESS_TERMCAP_se (printf "\e[0m")
+    set -x LESS_TERMCAP_so (printf "\e[1;44;33m")
+    set -x LESS_TERMCAP_ue (printf "\e[0m")
+    set -x LESS_TERMCAP_us (printf "\e[1;36m")
+    set -x LESS -iMR
+    set -x GROFF_NO_SGR 1
+end
+
 # set -x MANPAGER "nvim +Man!"
 # add custom binaires
 if test -d ~/dotfiles/bin
@@ -38,11 +46,7 @@ if test -d ~/dotfiles/bin
     fish_add_path ~/.cargo/bin/
 end
 
-if test (cat /etc/hostname) = dazzapc
-    kitty @ set-font-size 14
-end
 
-set -gx EDITOR hx
 set -gx SSH_AUTH_SOCK /home/$USER/.bitwarden-ssh-agent.sock
 function fish_prompt -d "Write out the prompt"
     # This shows up as USER@HOST /home/user/ >, with the directory colored
