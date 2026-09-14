@@ -47,6 +47,7 @@ if test -d ~/dotfiles/bin
 end
 
 
+set -gx EDITOR nvim
 set -gx SSH_AUTH_SOCK /home/$USER/.bitwarden-ssh-agent.sock
 function fish_prompt -d "Write out the prompt"
     # This shows up as USER@HOST /home/user/ >, with the directory colored
