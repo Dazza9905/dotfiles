@@ -12,6 +12,14 @@ function edit
     $EDITOR /home/dazza/.nixconf/modules/hosts/$(hostname)/configuration.nix
     y /home/dazza/.nixconf/modules/hosts/$(hostname)/configuration.nix
 end
+function ui
+    cd ~/repos/ui-projekt1/
+    devenv shell -- fish -c '
+      jupyter lab 2> /dev/null &
+      zen --new-window http://localhost:8888/ &
+      nvim
+    '
+end
 
 # function "rebuild"
 #   cd /home/dazza/.nixconf/
@@ -23,8 +31,6 @@ function update
     nix flake update
 end
 
-abbr gh "cd ~" # gh goes home
-abbr ghh "command gh" # ghh calls the GitHub CLI
 
 
 if status is-interactive

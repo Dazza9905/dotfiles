@@ -65,6 +65,12 @@ window-rule {
 }
 
 window-rule {
+    match title=r#"^Switch0$"#
+    match title=r#"^Text Edit(?:or|ing)$"#
+    open-floating true
+}
+
+window-rule {
     match app-id=r#"^gpt-dictate$"#
     open-floating true
     default-column-width { fixed 300; }
@@ -97,7 +103,7 @@ binds {
     Mod+C { center-column; }
     Mod+G { toggle-column-tabbed-display; }
     Mod+M { spawn "kitty" "--class" "ncspot" "-e" "ncspot"; }
-    Mod+Period { spawn "gpt-dictate" "toggle"; }
+    Mod+Period { spawn "gpt-transcribe"; }
 
 
     Mod+Minus { set-column-width "-10%"; }
