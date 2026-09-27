@@ -1,5 +1,7 @@
 alias lg lazygit
 
+# direnv hook fish | source
+devenv hook fish | source
 
 set -gx EDITOR nvim
 
