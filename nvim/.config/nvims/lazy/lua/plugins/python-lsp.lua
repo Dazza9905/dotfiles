@@ -15,9 +15,17 @@ return {
               executable = project_executable
             end
 
+            -- Match uv's project environment even when Neovim inherited a
+            -- different activated environment from an older devenv shell.
+            local env = vim.tbl_extend("force", {}, config.cmd_env or {})
+            local project_venv = vim.fs.joinpath(root_dir, ".venv")
+            if vim.fn.executable(vim.fs.joinpath(project_venv, "bin", "python")) == 1 then
+              env.VIRTUAL_ENV = project_venv
+            end
+
             return vim.lsp.rpc.start({ executable ~= "" and executable or "ty", "server" }, dispatchers, {
               cwd = root_dir,
-              env = config.cmd_env,
+              env = env,
               detached = config.detached,
             })
           end,

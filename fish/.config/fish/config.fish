@@ -1,7 +1,8 @@
 alias lg lazygit
 
 # direnv hook fish | source
-devenv hook fish | source
+# Use native Fish integration so auto-activated shells retain the bottom TUI.
+devenv hook fish -- --shell fish | source
 
 set -gx EDITOR nvim
 
@@ -14,8 +15,8 @@ function edit
     $EDITOR /home/dazza/.nixconf/modules/hosts/$(hostname)/configuration.nix
     y /home/dazza/.nixconf/modules/hosts/$(hostname)/configuration.nix
 end
-function ui
-    cd ~/repos/ui-projekt1/
+function iau
+    cd ~/repos/IAU-course/
     devenv shell -- fish -c '
       jupyter lab 2> /dev/null &
       zen --new-window http://localhost:8888/ &

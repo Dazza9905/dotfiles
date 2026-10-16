@@ -5,4 +5,5 @@ function y
 		builtin cd -- "$cwd"
 	end
 	rm -f -- "$tmp"
+  zoxide add .
 end

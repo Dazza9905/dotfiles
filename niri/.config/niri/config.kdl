@@ -2,6 +2,7 @@
 include "monitor.kdl"
 
 spawn-at-startup "noctalia"
+spawn-at-startup "activate-linux"
 
 xwayland-satellite {
     path "xwayland-satellite"
@@ -11,7 +12,8 @@ input {
     focus-follows-mouse
     keyboard {
         xkb {
-            layout "us,ua,sk"
+            layout "us,sk"
+            variant ",qwerty"
         }
         numlock
     }
@@ -25,6 +27,13 @@ input {
         accel-profile "flat"
     }
 }
+
+overview {
+    zoom 0.5
+    backdrop-color "#000000"
+
+}
+
 
 layout {
     background-color "transparent"
@@ -41,7 +50,9 @@ layout {
         bottom 5
     }
 }
-
+hotkey-overlay {
+    skip-at-startup
+}
 prefer-no-csd
 
 // Mild compositor blur for Kitty's translucent background.
@@ -94,6 +105,7 @@ layer-rule {
 binds {
     // Basic
     Mod+Return { spawn "kitty"; }
+    Mod+Shift+Space { switch-layout "next"; }
     Mod+Space { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
     Mod+Q { close-window; }
     Mod+F { maximize-column; }
@@ -155,7 +167,8 @@ binds {
     // Custom Execs
     Mod+E { spawn "kitty" "-e" "fish" "-c" "y"; }
     Mod+B { spawn "zen"; }
-
+    Mod+O { spawn "obsidian"; }
+    Mod+Shift+O { spawn-sh "~/nas/daren-main/learn/learn.sh"; }
 
     XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+ -l 1.0"; }
     XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05-"; }
@@ -197,6 +210,7 @@ binds {
 
     // Screenshot / Snipping Tool (region select)
     Mod+Shift+S { spawn "noctalia" "msg" "screenshot-region"; }
+    Mod+Ctrl+Shift+S { spawn "/run/current-system/sw/bin/edit-clipboard-image"; }
 }
 
 workspace "w1"
@@ -204,6 +218,7 @@ workspace "w2"
 workspace "w3"
 workspace "w4"
 workspace "w5"
+
 
 
 include "noctalia.kdl"

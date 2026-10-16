@@ -2,6 +2,8 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
+vim.keymap.set("n", "<leader>uP", "<cmd>SyntaxPaletteToggle<cr>", { desc = "Toggle Syntax Palette" })
+
 local diagnostic_hints_visible = true
 local diagnostic_config
 
