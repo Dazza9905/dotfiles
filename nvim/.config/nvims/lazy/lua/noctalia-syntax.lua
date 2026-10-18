@@ -1,5 +1,31 @@
 local M = {}
 local mode = "noctalia"
+local saturation_boost = 2.5
+local hue_spread = 0.73
+
+local function saturate(color, target_lightness)
+  local channels = {}
+  for offset = 2, 6, 2 do
+    channels[#channels + 1] = tonumber(color:sub(offset, offset + 1), 16) / 255
+  end
+  local low, high = math.min(unpack(channels)), math.max(unpack(channels))
+  local chroma = high - low
+  if chroma == 0 then
+    return color
+  end
+
+  -- Scale HSL saturation without clipping. Lower accent lightness on dark
+  -- backgrounds to avoid fully saturated colors still looking pastel.
+  local lightness = (high + low) / 2
+  local gamut = 1 - math.abs(2 * lightness - 1)
+  local output_lightness = target_lightness or lightness
+  local scale = math.min(saturation_boost, gamut / chroma)
+    * (1 - math.abs(2 * output_lightness - 1)) / gamut
+  for i, channel in ipairs(channels) do
+    channels[i] = string.format("%02x", math.floor((output_lightness + (channel - lightness) * scale) * 255 + 0.5))
+  end
+  return "#" .. table.concat(channels)
+end
 
 local function mix(a, b, amount)
   local result = {}
@@ -9,6 +35,31 @@ local function mix(a, b, amount)
     result[#result + 1] = string.format("%02x", math.floor(x * (1 - amount) + y * amount + 0.5))
   end
   return "#" .. table.concat(result)
+end
+
+local function rotate_hue(color, degrees)
+  local r, g, b = tonumber(color:sub(2, 3), 16) / 255, tonumber(color:sub(4, 5), 16) / 255,
+    tonumber(color:sub(6, 7), 16) / 255
+  local low, high = math.min(r, g, b), math.max(r, g, b)
+  local chroma = high - low
+  if chroma == 0 then
+    return color
+  end
+  local hue
+  if high == r then
+    hue = ((g - b) / chroma) % 6
+  elseif high == g then
+    hue = (b - r) / chroma + 2
+  else
+    hue = (r - g) / chroma + 4
+  end
+  hue = (hue + degrees * hue_spread / 60) % 6
+  local x = chroma * (1 - math.abs(hue % 2 - 1))
+  local sectors = { { chroma, x, 0 }, { x, chroma, 0 }, { 0, chroma, x },
+    { 0, x, chroma }, { x, 0, chroma }, { chroma, 0, x } }
+  local channels = sectors[math.floor(hue) + 1]
+  return string.format("#%02x%02x%02x", math.floor((channels[1] + low) * 255 + 0.5),
+    math.floor((channels[2] + low) * 255 + 0.5), math.floor((channels[3] + low) * 255 + 0.5))
 end
 
 function M.apply(c)
@@ -30,22 +81,27 @@ function M.apply(c)
     punctuation = "#888888"
     comment = "#777777"
   else
-    keyword = c.base08
-    string = mix(c.base09, c.base08, 0.35)
-    number = mix(c.base08, c.base0A, 0.45)
-    func = c.base0B
-    method = mix(c.base0B, c.base0C, 0.35)
-    type_color = c.base0C
-    property = mix(c.base09, c.base0B, 0.45)
-    parameter = mix(c.base0B, c.base05, 0.5)
-    constant = mix(c.base08, c.base09, 0.5)
+    -- Anchor role hues to the generated function accent. Fixed offsets keep
+    -- roles distinct even when the wallpaper produces near-identical accents.
+    local background = tonumber(c.base00:sub(2, 3), 16) + tonumber(c.base00:sub(4, 5), 16)
+      + tonumber(c.base00:sub(6, 7), 16)
+    local accent = saturate(c.base0B, background < 384 and 0.77 or 0.38)
+    keyword = rotate_hue(accent, 30)
+    string = rotate_hue(accent, -140)
+    number = rotate_hue(accent, -90)
+    func = accent
+    method = rotate_hue(accent, -15)
+    type_color = rotate_hue(accent, 60)
+    property = rotate_hue(accent, 125)
+    parameter = property
+    constant = property
     variable = mix(c.base05, c.base0A, 0.25)
-    operator = c.base04
+    operator = number
     punctuation = c.base03
     comment = c.base03
   end
-  local control_flow = mode == "classic" and "#f36b9a" or keyword
-  local builtin_type = mode == "classic" and "#23b9e7" or type_color
+  local control_flow = mode == "classic" and "#f36b9a" or type_color
+  local builtin_type = mode == "classic" and "#23b9e7" or number
 
   local groups = {
     ["@keyword"] = { fg = keyword, bold = true },

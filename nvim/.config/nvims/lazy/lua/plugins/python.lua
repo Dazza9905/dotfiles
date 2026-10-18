@@ -11,6 +11,14 @@ end
 
 return {
   {
+    "stevearc/conform.nvim",
+    opts = {
+      formatters_by_ft = {
+        python = { "ruff_format" },
+      },
+    },
+  },
+  {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
@@ -26,6 +34,9 @@ return {
                 pyflakes = { enabled = false },
                 pycodestyle = { enabled = false },
                 mccabe = { enabled = false },
+                autopep8 = { enabled = false },
+                yapf = { enabled = false },
+                black = { enabled = false },
               },
             },
           },
