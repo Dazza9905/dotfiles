@@ -2,7 +2,7 @@
 include "monitor.kdl"
 
 spawn-at-startup "noctalia"
-spawn-at-startup "activate-linux"
+// spawn-at-startup "activate-linux"
 
 xwayland-satellite {
     path "xwayland-satellite"

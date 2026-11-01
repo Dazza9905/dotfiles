@@ -11,6 +11,7 @@ return {
       local neopyter = require("neopyter")
       neopyter.setup(opts)
       neopyter.delay_setup()
+      require("config.neopyter-live-sync").setup()
     end,
     keys = {
       { "<leader>jp", function() require("config.notebook-pull").pull() end, desc = "Pull Saved Jupyter Notebook" },
