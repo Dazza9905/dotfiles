@@ -18,12 +18,13 @@ input {
         numlock
     }
 
+    mouse {
+        accel-speed -0.7
+    }
+
     touchpad {
         tap
         natural-scroll
-    }
-
-    mouse {
         accel-profile "flat"
     }
 }
@@ -107,7 +108,9 @@ binds {
     Mod+Return { spawn "kitty"; }
     Mod+Shift+Space { switch-layout "next"; }
     Mod+Space { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
-    Mod+Q { close-window; }
+    Mod+Q allow-inhibiting=false { close-window; }
+    // Emergency exit for an unresponsive Oblivity process.
+    Mod+Ctrl+Shift+Q allow-inhibiting=false { spawn "/run/current-system/sw/bin/pkill" "-KILL" "-x" "Oblivity.exe"; }
     Mod+F { maximize-column; }
     Mod+Shift+F { fullscreen-window; }
     Mod+Alt+F { toggle-window-floating; }
@@ -211,6 +214,8 @@ binds {
     // Screenshot / Snipping Tool (region select)
     Mod+Shift+S { spawn "noctalia" "msg" "screenshot-region"; }
     Mod+Ctrl+Shift+S { spawn "/run/current-system/sw/bin/edit-clipboard-image"; }
+
+    Ctrl+Shift+2 repeat=false { spawn "gdbus" "call" "--session" "--dest" "com.t3tools.T3Code.SnapShot" "--object-path" "/com/t3tools/SnapShot" "--method" "com.t3tools.SnapShot.Capture"; }
 }
 
 workspace "w1"
